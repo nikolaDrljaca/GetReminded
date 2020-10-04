@@ -1,11 +1,13 @@
 # GetReminded
 A simple reminder/note taking application built with the latest
-Android Architecture Components.\n
+Android Architecture Components.
 Created by a university student looking to improve his skills.
 
 ## Installation/Download
 Clone this repository or download the zip file and import into **Android Studio**.
-You can also download the app on the Play Store:\n
+You can also download the app on the Play Store:
+
+
 <a href="https://play.google.com/store/apps/details?id=com.nikoladrljaca.getreminded" target="_blank">
 <img src="https://play.google.com/intl/en_us/badges/images/generic/en-play-badge.png" alt="Get it on Google Play" height="70"/></a>
 
