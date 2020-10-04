@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/mainFragment">
+
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="com.nikoladrljaca.getreminded.ui.MainFragment"
+        android:label="fragment_main"
+        tools:layout="@layout/fragment_main" >
+        <action
+            android:id="@+id/action_mainFragment_to_reminderFragment"
+            app:destination="@id/reminderFragment"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"/>
+        <action
+            android:id="@+id/action_mainFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out"
+            />
+    </fragment>
+    <fragment
+        android:id="@+id/reminderFragment"
+        android:name="com.nikoladrljaca.getreminded.ui.ReminderFragment"
+        android:label="fragment_reminder"
+        tools:layout="@layout/fragment_reminder">
+        <argument
+            android:name="isItemSent"
+            app:argType="boolean"
+            />
+        <argument
+            android:name="itemPosition"
+            app:argType="integer"
+            />
+        <argument
+            android:name="sharedItemSent"
+            app:argType="boolean"/>
+        <argument
+            android:name="sharedString"
+            app:argType="string"/>
+        <action
+            android:id="@+id/action_reminderFragment_to_mainFragment"
+            app:destination="@id/mainFragment"
+            app:popUpToInclusive="true"
+            app:popUpTo="@id/mainFragment"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"/>
+
+    </fragment>
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.nikoladrljaca.getreminded.ui.SettingsFragment"
+        android:label="SettingsFragment" >
+        <action
+            android:id="@+id/action_settingsFragment_to_openSourceFragment"
+            app:destination="@id/openSourceFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out"/>
+    </fragment>
+    <fragment
+        android:id="@+id/openSourceFragment"
+        android:name="com.nikoladrljaca.getreminded.ui.OpenSourceFragment"
+        android:label="fragment_open_source"
+        tools:layout="@layout/fragment_open_source" />
+</navigation>

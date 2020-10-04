@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="2dp"
+    android:paddingTop="4dp"
+    android:backgroundTint="@color/colorBackground"
+    android:orientation="vertical"
+    tools:context=".ui.ReminderFragment">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/reminder_detail_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp"
+        android:backgroundTint="@color/colorCardBackground"
+        android:transitionName="1"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="4dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:transitionName="detail_note"
+            tools:context=".ui.ReminderFragment">
+
+
+            <EditText
+                android:id="@+id/et_reminder_title"
+                android:layout_width="match_parent"
+                android:layout_height="112dp"
+                android:background="@null"
+                android:fontFamily="@font/montserrat_bold"
+                android:gravity="start"
+                android:hint="@string/title"
+                android:inputType="textCapSentences|textMultiLine"
+                android:maxLines="2"
+                android:padding="12dp"
+                android:textSize="36sp" />
+
+
+            <EditText
+                android:id="@+id/et_reminder_note"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:fontFamily="@font/opensans_regular"
+                android:gravity="start"
+                android:hint="@string/note"
+                android:inputType="textCapSentences|textMultiLine"
+                android:minHeight="200dp"
+                android:padding="12dp" />
+
+
+            <TextView
+                android:id="@+id/tv_reminder_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/opensans_regular"
+                android:gravity="center"
+                android:padding="8dp"
+                android:textColor="?android:attr/textColorPrimary"
+                android:textSize="24sp"
+                tools:text="@string/date_display" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="24dp"
+                android:background="?android:attr/listDivider" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingStart="4dp"
+                android:paddingTop="4dp"
+                android:paddingEnd="4dp">
+
+                <Button
+                    android:id="@+id/btn_select_date"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/select_date"
+                    android:textColor="?android:attr/colorAccent"
+                    app:icon="@drawable/ic_baseline_calendar_today_24"
+                    app:iconGravity="textStart"
+                    app:iconTint="?android:attr/colorAccent" />
+
+                <Button
+                    android:id="@+id/btn_save"
+                    style="@style/Widget.MaterialComponents.Button.Icon"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="?android:attr/colorAccent"
+                    android:text="@string/save"
+                    app:icon="@drawable/ic_baseline_save_24"
+                    app:iconGravity="textStart" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="560dp" />
+
+</LinearLayout>
+
+
+

@@ -1,0 +1,59 @@
+<resources>
+    <string name="app_name" translatable="false">Get Reminded</string>
+    <string name="delete_all">Delete all</string>
+    <string name="search" translatable="false">Search</string>
+    <string name="day_start" translatable="false">Day Start</string>
+    <string name="nothing_to_show_here">Nothing to show here\nClick the \'+\' to add a new Reminder</string>
+    <string name="title_placeholder" translatable="false">Title placeholder</string>
+    <string name="note_placeholder" translatable="false">Note placeholder</string>
+    <string name="date_placeholder" translatable="false">Date: 20.09.2020</string>
+    <string name="save">Save</string>
+    <string name="title">Title</string>
+    <string name="note">Note</string>
+    <string name="date">Date</string>
+    <string name="select_date">Select date</string>
+
+    <string name="save_reminder_error">Reminder needs a title!</string>
+    <string name="reminder_saved">Reminder saved!</string>
+    <string name="delete">Delete</string>
+    <string name="reminder">Reminder</string>
+    <string name="item_deleted">Reminder deleted</string>
+    <string name="date_display">Date: %1$s</string>
+
+    <string name="welcome_dialog">Welcome!</string>
+    <string name="welcome_message">
+        The app gives you notifications every day at the same time.\nThis time can always be changed using the clock button on the bottom of
+        the screen.\nClick OK to set the time!
+    </string>
+    <string name="alert_dialog_ok">OK</string>
+
+    <string name="my_notification_channel_id" translatable="false">GetReminded channel</string>
+
+    <string name="delete_dialog_confirm_title">Confirm</string>
+    <string name="delete_dialog_message">All reminders will be deleted.\nDo you wish to proceed?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="cancel">Cancel</string>
+
+    <string name="get_reminded_notification_channel_id" translatable="false">get_reminded_channel</string>
+    <string name="get_reminded_notification_channel_name" translatable="false">GetReminded</string>
+
+    <string name="list_is_empty">The list is already empty</string>
+
+    <string name="notification_title">Daily reminder</string>
+    <string name="notification_body">Remember to check on your notes for today!</string>
+    <string name="settings" translatable="false">Settings</string>
+
+    <string name="share_my_app" translatable="false">Check out the GetReminded app:\nhttps://play.google.com/store/apps/details?id=com.nikoladrljaca.getreminded </string>
+
+    <string name="app_desc" translatable="false">Create Reminder</string>
+    <string name="time_reminder">Change the time using the clock button!</string>
+    <string name="time_saved">Time saved!</string>
+
+    <string name="icon_link" translatable="false">https://www.iconfinder.com/yogiaprelliyanto</string>
+    <string name="license_link" translatable="false">https://creativecommons.org/licenses/by/3.0/</string>
+    <string name="icon_desc_license" translatable="false">Application icon</string>
+
+    <string name="bug_report">GetReminded - Bug Report</string>
+    <string name="youtube_link">https://www.youtube.com/channel/UCMZCcXF8cNRGFeAYlE0adCQ</string>
+</resources>

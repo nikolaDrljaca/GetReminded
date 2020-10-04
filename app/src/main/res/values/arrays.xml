@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="settings_accent_color_entries">
+        <item>Blue</item>
+        <item>Red</item>
+        <item>Green</item>
+        <item>Orange</item>
+        <item>Purple</item>
+    </string-array>
+    <string-array name="settings_accent_color_values">
+        <item>blue</item>
+        <item>red</item>
+        <item>green</item>
+        <item>orange</item>
+        <item>purple</item>
+    </string-array>
+
+    <string-array name="settings_layout_entries">
+        <item>Vertical</item>
+        <item>Grid</item>
+    </string-array>
+
+    <string-array name="settings_layout_values">
+        <item>vertical</item>
+        <item>grid</item>
+    </string-array>
+</resources>

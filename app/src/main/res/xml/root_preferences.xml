@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.preference.PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory app:title="General">
+
+        <Preference
+            app:icon="@drawable/ic_black_time_24"
+            app:key="reminder_time"
+            app:summary="Not currently set"
+            app:title="Reminder time" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="Customization">
+
+        <ListPreference
+            app:entries="@array/settings_accent_color_entries"
+            app:entryValues="@array/settings_accent_color_values"
+            app:icon="@drawable/ic_primary_color_24"
+            app:key="accent_color_list"
+            app:title="Accent color"
+            app:useSimpleSummaryProvider="true" />
+
+        <SwitchPreferenceCompat
+            app:icon="@drawable/ic_day_night_24"
+            app:key="dark_mode_switch"
+            app:title="Dark mode" />
+
+        <ListPreference
+            app:entries="@array/settings_layout_entries"
+            app:entryValues="@array/settings_layout_values"
+            app:defaultValue="vertical"
+            app:icon="@drawable/ic_baseline_dashboard_24"
+            app:key="layout"
+            app:title="Layout"
+            app:useSimpleSummaryProvider="true" />
+
+    </PreferenceCategory>
+
+
+    <PreferenceCategory app:title="About">
+
+        <Preference
+            app:icon="@drawable/ic_baseline_star_border_24"
+            app:key="rate_this_app"
+            app:summary="Let us know what you think!"
+            app:title="Rate this app" />
+        <Preference
+            app:icon="@drawable/ic_baseline_share_24"
+            app:key="share"
+            app:summary="Share the app with friends and family"
+            app:title="Share" />
+        <Preference
+            app:icon="@drawable/ic_baseline_bug_report_24"
+            app:key="bug_report"
+            app:summary="If you encounter any bugs, please report them here"
+            app:title="Report a bug" />
+        <Preference
+            app:icon="@drawable/ic_baseline_card_giftcard_24"
+            app:key="donate"
+            app:summary="If you like my work you can leave some money here"
+            app:title="Donate" />
+        <Preference
+            app:icon="@drawable/ic_baseline_public_24"
+            app:key="open_source_licenses"
+            app:summary="Details for open source software used"
+            app:title="Open source licenses" />
+
+    </PreferenceCategory>
+
+<!--    <PreferenceCategory app:title="Socials">-->
+
+<!--        <Preference-->
+<!--            app:icon="@drawable/ic_youtube"-->
+<!--            app:key="youtube"-->
+<!--            app:summary="Watch a few videos to see how this is made!"-->
+<!--            app:title="YouTube" />-->
+
+<!--        <Preference-->
+<!--            app:icon="@drawable/ic_twitter"-->
+<!--            app:key="twitter"-->
+<!--            app:summary="Check out my Twitter page"-->
+<!--            app:title="Twitter" />-->
+
+<!--        <Preference-->
+<!--            app:icon="@drawable/ic_instagram"-->
+<!--            app:key="instagram"-->
+<!--            app:summary="Check out my Instagram page"-->
+<!--            app:title="Instagram" />-->
+<!--    </PreferenceCategory>-->
+
+</androidx.preference.PreferenceScreen>
