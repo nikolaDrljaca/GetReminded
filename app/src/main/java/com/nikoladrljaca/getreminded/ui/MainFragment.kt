@@ -1,12 +1,10 @@
 package com.nikoladrljaca.getreminded.ui
 
 import android.app.AlertDialog
-import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.View
 import android.widget.Toast
-import androidx.core.os.bundleOf
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.viewModelScope
@@ -53,18 +51,6 @@ class MainFragment : Fragment(R.layout.fragment_main), ReminderListAdapter.OnRem
         fabCreateNewReminder.visibility = View.VISIBLE
         bottomAppBar.performShow()
         bottomAppBar.visibility = View.VISIBLE
-
-        //check and get any shared text
-        if (requireActivity().intent.hasExtra(Intent.EXTRA_TEXT)) {
-            if (requireActivity().intent?.action == Intent.ACTION_SEND) {
-                if (requireActivity().intent.type == "text/plain") {
-                    val sharedText = requireActivity().intent.getStringExtra(Intent.EXTRA_TEXT)
-                    val bundle = bundleOf("sharedString" to sharedText, "sharedItemSent" to true)
-                    findNavController().navigate(R.id.action_mainFragment_to_reminderFragment, bundle)
-                    requireActivity().intent.removeExtra(Intent.EXTRA_TEXT)
-                }
-            }
-        }
 
         sharedViewModel.allReminders.observe(viewLifecycleOwner, {
             adapter.setReminderList(it)
@@ -129,8 +115,8 @@ class MainFragment : Fragment(R.layout.fragment_main), ReminderListAdapter.OnRem
         ItemTouchHelper(itemTouchHelper).attachToRecyclerView(binding.rvReminderList)
 
         fabCreateNewReminder.setOnClickListener {
-            sharedViewModel.setClearReminder(true)
-            findNavController().navigate(R.id.action_mainFragment_to_reminderFragment)
+            val action = MainFragmentDirections.actionMainFragmentToReminderFragment()
+            findNavController().navigate(action)
             fabCreateNewReminder.hide()
             bottomAppBar.performHide()
         }
@@ -161,14 +147,12 @@ class MainFragment : Fragment(R.layout.fragment_main), ReminderListAdapter.OnRem
         _binding = null
     }
 
-    override fun onItemClickListener(position: Int) {
+    override fun onItemClickListener(position: Int, reminderId: Int) {
         fabCreateNewReminder.hide()
         bottomAppBar.performHide()
 
-        val current = sharedViewModel.allReminders.value!![position]
-        sharedViewModel.setDisplayReminder(current)
-        sharedViewModel.setClearReminder(false)
-        findNavController().navigate(R.id.action_mainFragment_to_reminderFragment)
+        val action = MainFragmentDirections.actionMainFragmentToReminderFragment(reminderId)
+        findNavController().navigate(action)
     }
 
     private fun checkLayoutManager() {

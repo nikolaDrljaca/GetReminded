@@ -7,6 +7,10 @@ import com.nikoladrljaca.getreminded.viewmodel.Reminder
 class ReminderRepository(private val reminderDao: ReminderDao) {
     val allReminders: LiveData<List<Reminder>> = reminderDao.getAllReminders()
 
+    suspend fun getReminder(id: Int): Reminder {
+        return reminderDao.getReminder(id)
+    }
+
     suspend fun insert(reminder: Reminder){
         reminderDao.insert(reminder)
     }

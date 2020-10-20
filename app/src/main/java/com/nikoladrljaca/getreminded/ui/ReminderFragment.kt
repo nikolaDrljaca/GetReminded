@@ -11,9 +11,8 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
-import com.google.android.material.bottomappbar.BottomAppBar
+import androidx.navigation.fragment.navArgs
 import com.google.android.material.datepicker.MaterialDatePicker
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.nikoladrljaca.getreminded.R
 import com.nikoladrljaca.getreminded.databinding.FragmentReminderBinding
 import com.nikoladrljaca.getreminded.viewmodel.Reminder
@@ -26,6 +25,7 @@ class ReminderFragment : Fragment(R.layout.fragment_reminder) {
     private val binding get() = _binding!!
     private val sharedViewModel by activityViewModels<SharedViewModel>()
 
+    private val args: ReminderFragmentArgs by navArgs()
     private var reminderExists = false
     private var reminderId = 0
 
@@ -33,35 +33,22 @@ class ReminderFragment : Fragment(R.layout.fragment_reminder) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentReminderBinding.bind(view)
         var date = Calendar.getInstance().timeInMillis
-        val bottomAppBar = requireActivity().findViewById<BottomAppBar>(R.id.bottomAppBar)
-        val fab = requireActivity().findViewById<FloatingActionButton>(R.id.fab_create_new_reminder)
 
-        //check if text came from outside and process it
-        if (requireArguments().getBoolean("sharedItemSent", false)) {
-            bottomAppBar.visibility = View.INVISIBLE
-            fab.visibility = View.INVISIBLE
-            binding.etReminderNote.setText(
-                requireArguments().getString("sharedString"),
-                TextView.BufferType.EDITABLE
-            )
+        if (args.reminderId < 0) {
+            //display empty screen
         }
-
-        sharedViewModel.displayReminder.observe(viewLifecycleOwner, {
-            date = it.date
-            binding.etReminderTitle.setText(it.title, TextView.BufferType.EDITABLE)
-            binding.etReminderNote.setText(it.note, TextView.BufferType.EDITABLE)
-            binding.tvReminderDate.text = getString(R.string.date_display, dateFromEpoch(date))
-            reminderId = it.id!!
-            reminderExists = true
-        })
-
-        sharedViewModel.clearReminder.observe(viewLifecycleOwner) {
-            if (it) {
-                binding.etReminderTitle.text.clear()
-                binding.etReminderNote.text.clear()
-                binding.tvReminderDate.text = ""
-                reminderExists = false
-                date = Calendar.getInstance().timeInMillis
+        //an argument was passed
+        if (args.reminderId > 0) {
+            sharedViewModel.setDisplayReminder(args.reminderId)
+            sharedViewModel.displayReminder.observe(viewLifecycleOwner){
+                date = it.date
+                binding.apply {
+                    etReminderTitle.setText(it.title, TextView.BufferType.EDITABLE)
+                    etReminderNote.setText(it.note, TextView.BufferType.EDITABLE)
+                    tvReminderDate.text = dateFromEpoch(date)
+                    reminderId = it.id!!
+                    reminderExists = true
+                }
             }
         }
 
@@ -96,7 +83,7 @@ class ReminderFragment : Fragment(R.layout.fragment_reminder) {
                     .getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
                 input.hideSoftInputFromWindow(binding.etReminderTitle.windowToken, 0)
 
-                findNavController().navigate(R.id.action_reminderFragment_to_mainFragment)
+                findNavController().navigateUp()
             }
         }
     }

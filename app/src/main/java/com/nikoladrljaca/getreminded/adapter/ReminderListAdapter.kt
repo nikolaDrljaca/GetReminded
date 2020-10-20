@@ -13,7 +13,7 @@ class ReminderListAdapter :
     RecyclerView.Adapter<ReminderListAdapter.ReminderViewHolder>() {
 
     interface OnReminderClickListener {
-        fun onItemClickListener(position: Int)
+        fun onItemClickListener(position: Int, reminderId: Int)
     }
 
     private var listOfReminders = emptyList<Reminder>()
@@ -31,7 +31,8 @@ class ReminderListAdapter :
         val current = listOfReminders[position]
         holder.bind(current)
         holder.itemView.setOnClickListener {
-            listener.onItemClickListener(position)
+            val reminderId = current.id!!
+            listener.onItemClickListener(position, reminderId)
         }
     }
 

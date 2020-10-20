@@ -32,28 +32,9 @@
         android:label="fragment_reminder"
         tools:layout="@layout/fragment_reminder">
         <argument
-            android:name="isItemSent"
-            app:argType="boolean"
-            />
-        <argument
-            android:name="itemPosition"
+            android:name="reminderId"
             app:argType="integer"
-            />
-        <argument
-            android:name="sharedItemSent"
-            app:argType="boolean"/>
-        <argument
-            android:name="sharedString"
-            app:argType="string"/>
-        <action
-            android:id="@+id/action_reminderFragment_to_mainFragment"
-            app:destination="@id/mainFragment"
-            app:popUpToInclusive="true"
-            app:popUpTo="@id/mainFragment"
-            app:popEnterAnim="@anim/slide_in_right"
-            app:popExitAnim="@anim/slide_out_left"
-            app:enterAnim="@anim/slide_in_left"
-            app:exitAnim="@anim/slide_out_right"/>
+            android:defaultValue="-1" />
 
     </fragment>
     <fragment

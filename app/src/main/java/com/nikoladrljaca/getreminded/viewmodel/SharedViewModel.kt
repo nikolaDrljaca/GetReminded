@@ -14,21 +14,16 @@ class SharedViewModel(application: Application) : AndroidViewModel(application) 
     private val _displayReminder = MutableLiveData<Reminder>()
     val displayReminder: LiveData<Reminder> get() = _displayReminder
 
-    private val _clearReminder = MutableLiveData<Boolean>()
-    val clearReminder: LiveData<Boolean> get() = _clearReminder
-
     init {
         val reminderDao = ReminderDatabase.getDatabase(application).reminderDao()
         repository = ReminderRepository(reminderDao)
         allReminders = repository.allReminders
     }
 
-    fun setDisplayReminder(reminder: Reminder) {
-        _displayReminder.value = reminder
-    }
-
-    fun setClearReminder(control: Boolean) {
-        _clearReminder.value = control
+    fun setDisplayReminder(reminderId: Int) {
+        viewModelScope.launch {
+            _displayReminder.value = repository.getReminder(reminderId)
+        }
     }
 
     fun updateEntry(reminder: Reminder) {
