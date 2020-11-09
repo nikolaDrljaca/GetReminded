@@ -7,8 +7,9 @@
 
     <color name="colorCardBackground">#333333</color>
 
+    <color name="bottomIconColor">#ffffff</color>
+
     <color name="colorBottomAppBar">#272727</color>
-    <color name="colorNavigationBar">#272727</color>
 
     <color name="colorAccentRed">#e57373</color>
     <color name="colorAccentGreen">#81c784</color>

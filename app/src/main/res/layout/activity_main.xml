@@ -7,7 +7,6 @@
     android:background="@color/colorBackground"
     tools:context=".MainActivity">
 
-
     <FrameLayout
         android:id="@+id/frame_layout"
         android:layout_width="match_parent"
@@ -27,11 +26,10 @@
 
     <com.google.android.material.bottomappbar.BottomAppBar
         android:id="@+id/bottomAppBar"
-        style="@style/Widget.MaterialComponents.BottomAppBar.Colored"
+        style="@style/Widget.MaterialComponents.BottomAppBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:backgroundTint="@color/colorBottomAppBar"
         app:fabAlignmentMode="end"
         app:fabCradleMargin="6dp"
         app:hideOnScroll="true"

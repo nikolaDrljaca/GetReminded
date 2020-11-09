@@ -3,12 +3,13 @@
     <color name="colorPrimary">#455a64</color>
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#3d5afe</color>
-    <color name="colorBackground">#b0bec5</color>
+    <color name="colorBackground">#ffffff</color>
 
     <color name="colorCardBackground">#ffffff</color>
 
+    <color name="bottomIconColor">#212121</color>
+
     <color name="colorBottomAppBar">#b0bec5</color>
-    <color name="colorNavigationBar">#b0bec5</color>
 
     <color name="colorAccentRed">#d50000</color>
     <color name="colorAccentGreen">#00c853</color>

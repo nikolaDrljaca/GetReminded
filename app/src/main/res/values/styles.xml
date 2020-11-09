@@ -1,11 +1,11 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorAccent</item>
         <item name="colorPrimaryDark">@color/colorBackground</item>
         <item name="colorSecondary">@color/colorAccent</item>
-        <item name="android:navigationBarColor">@color/colorNavigationBar</item>
+        <item name="android:statusBarColor">@color/colorBackground</item>
     </style>
 
     <style name="AppThemeRed" parent="Theme.MaterialComponents.DayNight.NoActionBar">
@@ -13,7 +13,6 @@
         <item name="colorPrimary">@color/colorAccentRed</item>
         <item name="colorPrimaryDark">@color/colorBackground</item>
         <item name="colorAccent">@color/colorAccentRed</item>
-        <item name="android:navigationBarColor">@color/colorBottomAppBar</item>
     </style>
 
     <style name="AppThemeGreen" parent="Theme.MaterialComponents.DayNight.NoActionBar">
@@ -21,7 +20,6 @@
         <item name="colorPrimary">@color/colorAccentGreen</item>
         <item name="colorPrimaryDark">@color/colorBackground</item>
         <item name="colorAccent">@color/colorAccentGreen</item>
-        <item name="android:navigationBarColor">@color/colorBottomAppBar</item>
     </style>
 
     <style name="AppThemePurple" parent="Theme.MaterialComponents.DayNight.NoActionBar">
@@ -29,7 +27,6 @@
         <item name="colorPrimary">@color/colorAccentPurple</item>
         <item name="colorPrimaryDark">@color/colorBackground</item>
         <item name="colorAccent">@color/colorAccentPurple</item>
-        <item name="android:navigationBarColor">@color/colorBottomAppBar</item>
     </style>
 
     <style name="AppThemeOrange" parent="Theme.MaterialComponents.DayNight.NoActionBar">
@@ -37,6 +34,5 @@
         <item name="colorPrimary">@color/colorAccentOrange</item>
         <item name="colorPrimaryDark">@color/colorBackground</item>
         <item name="colorAccent">@color/colorAccentOrange</item>
-        <item name="android:navigationBarColor">@color/colorBottomAppBar</item>
     </style>
 </resources>
