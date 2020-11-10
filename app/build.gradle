@@ -77,4 +77,7 @@ dependencies {
     //sharedPreferences with preferences for settings
     implementation 'androidx.preference:preference:1.1.1'
     implementation "androidx.preference:preference-ktx:1.1.1"
+
+    //appIntro
+    implementation 'com.github.AppIntro:AppIntro:6.0.0'
 }

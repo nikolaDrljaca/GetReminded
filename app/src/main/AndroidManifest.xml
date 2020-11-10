@@ -19,6 +19,10 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name=".ui.AppIntroActivity"
+            android:label="Custom App Intro" />
+
         <receiver android:name=".utils.AlertReceiver"/>
 
     </application>

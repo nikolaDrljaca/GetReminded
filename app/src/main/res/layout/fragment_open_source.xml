@@ -38,4 +38,28 @@
             android:layout_marginEnd="24dp"
             android:background="?android:attr/listDivider"/>
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:textColor="?android:attr/textColorPrimary"
+            android:fontFamily="@font/opensans_regular"
+            android:textSize="24sp"
+            android:text="@string/appintro_library" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:autoLink="web"
+            android:text="@string/app_intro_link" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:background="?android:attr/listDivider"/>
+
 </LinearLayout>

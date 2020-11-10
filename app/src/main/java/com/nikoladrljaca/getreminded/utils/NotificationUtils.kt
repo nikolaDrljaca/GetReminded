@@ -31,7 +31,10 @@ fun sendNotification(context: Context) {
     val channelId = context.packageName
 
     val notificationBuilder = NotificationCompat.Builder(context, channelId).apply {
-        setSmallIcon(R.drawable.ic_black_time_24)
+        setSmallIcon(R.drawable.ic_stat_name)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            color = context.resources.getColor(R.color.colorAccent, null)
+        }
         setContentTitle(context.getString(R.string.notification_title))
         setContentText(context.getString(R.string.notification_body))
         setStyle(NotificationCompat.BigTextStyle().bigText(context.getString(R.string.notification_body)))

@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.preference.PreferenceManager
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.timepicker.MaterialTimePicker
+import com.nikoladrljaca.getreminded.ui.AppIntroActivity
 import com.nikoladrljaca.getreminded.utils.AlertReceiver
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
@@ -31,6 +32,15 @@ class MainActivity : AppCompatActivity() {
         val shared = PreferenceManager.getDefaultSharedPreferences(this)
         val hasSeenDialog = shared.getBoolean(HAS_SEEN_DIALOG, false)
         if (!hasSeenDialog) showStartDialog()
+
+        val seenAppIntro = shared.getBoolean("seenAppIntro", false)
+        if (!seenAppIntro) {
+            val shareEditor = PreferenceManager.getDefaultSharedPreferences(this).edit()
+            shareEditor.putBoolean("seenAppIntro", true)
+            shareEditor.apply()
+            val intent = Intent(this, AppIntroActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     fun checkDarkMode() {
