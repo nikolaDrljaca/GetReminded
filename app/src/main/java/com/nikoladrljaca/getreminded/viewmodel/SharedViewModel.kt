@@ -4,6 +4,8 @@ import android.app.Application
 import androidx.lifecycle.*
 import com.nikoladrljaca.getreminded.database.ReminderDatabase
 import com.nikoladrljaca.getreminded.repository.ReminderRepository
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import java.lang.Exception
 
@@ -26,7 +28,21 @@ class SharedViewModel(application: Application) : AndroidViewModel(application) 
         }
     }
 
-    fun updateEntry(reminder: Reminder) {
+    fun insert(title: String,
+               exists: Boolean,
+               date: Long,
+               note: String,
+               id: Int) = viewModelScope.launch {
+        if (title.isNotEmpty()) {
+            val reminder = Reminder(title, note, date)
+            if (exists) {
+                reminder.id = id
+                updateEntry(reminder)
+            } else insert(reminder)
+        }
+    }
+
+    private fun updateEntry(reminder: Reminder) {
         try {
             viewModelScope.launch {
                 repository.updateEntry(reminder)
@@ -36,19 +52,13 @@ class SharedViewModel(application: Application) : AndroidViewModel(application) 
         }
     }
 
-    fun insert(reminder: Reminder) {
+    private fun insert(reminder: Reminder) {
         try {
             viewModelScope.launch {
                 repository.insert(reminder)
             }
         } catch (e: Exception) {
 
-        }
-    }
-
-    fun deleteEntry(reminder: Reminder, delete: Boolean) {
-        viewModelScope.launch {
-            if (delete) repository.deleteEntry(reminder)
         }
     }
 
@@ -60,5 +70,21 @@ class SharedViewModel(application: Application) : AndroidViewModel(application) 
         } catch (e: Exception) {
 
         }
+    }
+
+    private val reminderEventChannel = Channel<MainEvents>()
+    val reminderEvents = reminderEventChannel.receiveAsFlow()
+
+    fun onReminderSwiped(reminder: Reminder) = viewModelScope.launch {
+        repository.deleteEntry(reminder)
+        reminderEventChannel.send(MainEvents.ShowUndoReminderDeleteMessage(reminder))
+    }
+
+    fun onUndoDeleteClick(reminder: Reminder) = viewModelScope.launch {
+        repository.insert(reminder)
+    }
+
+    sealed class MainEvents {
+        data class ShowUndoReminderDeleteMessage(val reminder: Reminder) : MainEvents()
     }
 }

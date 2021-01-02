@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginTop="2dp"
+    android:layout_marginBottom="2dp"
     android:paddingTop="4dp"
     android:backgroundTint="@color/colorBackground"
     android:orientation="vertical"
@@ -14,23 +15,24 @@
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/reminder_detail_card"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginTop="4dp"
+        android:layout_marginBottom="4dp"
         android:paddingBottom="4dp"
         android:backgroundTint="@color/colorCardBackground"
-        android:transitionName="1"
+        android:transitionGroup="true"
+        android:transitionName="container_card"
         app:cardCornerRadius="8dp"
         app:cardElevation="4dp">
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical"
             android:transitionName="detail_note"
             tools:context=".ui.ReminderFragment">
-
 
             <EditText
                 android:id="@+id/et_reminder_title"
@@ -43,8 +45,10 @@
                 android:inputType="textCapSentences|textMultiLine"
                 android:maxLines="2"
                 android:padding="12dp"
-                android:textSize="36sp" />
-
+                android:textSize="24sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <EditText
                 android:id="@+id/et_reminder_note"
@@ -56,8 +60,11 @@
                 android:hint="@string/note"
                 android:inputType="textCapSentences|textMultiLine"
                 android:minHeight="200dp"
-                android:padding="12dp" />
-
+                android:padding="12dp"
+                app:layout_constraintBottom_toTopOf="@+id/tv_reminder_date"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/et_reminder_title"
+                app:layout_constraintVertical_bias="0.0" />
 
             <TextView
                 android:id="@+id/tv_reminder_date"
@@ -67,23 +74,19 @@
                 android:gravity="center"
                 android:padding="8dp"
                 android:textColor="?android:attr/textColorPrimary"
-                android:textSize="24sp"
-                tools:text="@string/date_display" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginStart="24dp"
-                android:layout_marginEnd="24dp"
-                android:background="?android:attr/listDivider" />
+                android:textSize="16dp"
+                tools:text="@string/date_display"
+                app:layout_constraintBottom_toTopOf="@id/button_container"/>
 
             <LinearLayout
+                android:id="@+id/button_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:paddingStart="4dp"
                 android:paddingTop="4dp"
-                android:paddingEnd="4dp">
+                android:paddingEnd="4dp"
+                app:layout_constraintBottom_toBottomOf="parent">
 
                 <Button
                     android:id="@+id/btn_select_date"
@@ -98,32 +101,11 @@
                     app:icon="@drawable/ic_baseline_calendar_today_24"
                     app:iconGravity="textStart"
                     app:iconTint="?android:attr/colorAccent" />
-
-                <Button
-                    android:id="@+id/btn_save"
-                    style="@style/Widget.MaterialComponents.Button.Icon"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="8dp"
-                    android:layout_weight="1"
-                    android:backgroundTint="?android:attr/colorAccent"
-                    android:text="@string/save"
-                    app:icon="@drawable/ic_baseline_save_24"
-                    app:iconGravity="textStart" />
-
             </LinearLayout>
 
-        </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.google.android.material.card.MaterialCardView>
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="560dp" />
-
 </LinearLayout>
 
 

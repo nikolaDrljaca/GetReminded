@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.card.MaterialCardView
 import com.nikoladrljaca.getreminded.databinding.ListItemLayoutBinding
 import com.nikoladrljaca.getreminded.viewmodel.Reminder
 import java.text.SimpleDateFormat
@@ -13,7 +14,7 @@ class ReminderListAdapter :
     RecyclerView.Adapter<ReminderListAdapter.ReminderViewHolder>() {
 
     interface OnReminderClickListener {
-        fun onItemClickListener(position: Int, reminderId: Int)
+        fun onItemClickListener(reminderId: Int, cardView: MaterialCardView)
     }
 
     private var listOfReminders = emptyList<Reminder>()
@@ -30,10 +31,6 @@ class ReminderListAdapter :
     override fun onBindViewHolder(holder: ReminderViewHolder, position: Int) {
         val current = listOfReminders[position]
         holder.bind(current)
-        holder.itemView.setOnClickListener {
-            val reminderId = current.id!!
-            listener.onItemClickListener(position, reminderId)
-        }
     }
 
     inner class ReminderViewHolder(private val binding: ListItemLayoutBinding) :
@@ -43,9 +40,15 @@ class ReminderListAdapter :
                 tvReminderTitle.text = reminder.title
                 tvReminderNote.text = reminder.note
                 tvReminderDate.text = dateFromEpoch(reminder.date)
+                card.transitionName = reminder.id.toString()
 
                 if (tvReminderNote.text.toString().isEmpty()) {
                     tvReminderNote.visibility = View.GONE
+                }
+
+                card.setOnClickListener {
+                    val reminderId = reminder.id!!
+                    listener.onItemClickListener(reminderId, card)
                 }
             }
         }

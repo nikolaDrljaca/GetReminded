@@ -18,9 +18,9 @@
         android:layout_marginTop="4dp"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
-        android:backgroundTint="@color/colorCardBackground"
+        android:backgroundTint="@color/colorBackground"
         app:cardCornerRadius="8dp"
-        app:cardElevation="4dp">
+        app:cardElevation="0dp">
 
         <EditText
             android:id="@+id/et_search"

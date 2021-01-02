@@ -5,22 +5,30 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.View
 import android.widget.Toast
+import androidx.core.view.doOnPreDraw
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.*
 import com.google.android.material.bottomappbar.BottomAppBar
+import com.google.android.material.card.MaterialCardView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
+import com.google.android.material.transition.MaterialElevationScale
 import com.nikoladrljaca.getreminded.MainActivity
 import com.nikoladrljaca.getreminded.R
 import com.nikoladrljaca.getreminded.adapter.ReminderListAdapter
 import com.nikoladrljaca.getreminded.databinding.FragmentMainBinding
 import com.nikoladrljaca.getreminded.viewmodel.Reminder
 import com.nikoladrljaca.getreminded.viewmodel.SharedViewModel
+import kotlinx.coroutines.channels.consume
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.consumeAsFlow
 import kotlinx.coroutines.launch
 import java.util.*
 
@@ -38,6 +46,17 @@ class MainFragment : Fragment(R.layout.fragment_main), ReminderListAdapter.OnRem
         _binding = FragmentMainBinding.bind(view)
         fabCreateNewReminder = requireActivity().findViewById(R.id.fab_create_new_reminder)
         bottomAppBar = requireActivity().findViewById(R.id.bottomAppBar)
+
+        //transitions
+        postponeEnterTransition()
+        view.doOnPreDraw { startPostponedEnterTransition() }
+
+        exitTransition = MaterialElevationScale(false).apply {
+            duration = 300
+        }
+        reenterTransition = MaterialElevationScale(true).apply {
+            duration = 300
+        }
 
         adapter = ReminderListAdapter()
         adapter.setListener(this)
@@ -85,7 +104,7 @@ class MainFragment : Fragment(R.layout.fragment_main), ReminderListAdapter.OnRem
 
         val itemTouchHelper = object : ItemTouchHelper.SimpleCallback(
             0,
-            ItemTouchHelper.RIGHT + ItemTouchHelper.LEFT
+            ItemTouchHelper.RIGHT or ItemTouchHelper.LEFT
         ) {
             override fun onMove(
                 recyclerView: RecyclerView,
@@ -99,20 +118,25 @@ class MainFragment : Fragment(R.layout.fragment_main), ReminderListAdapter.OnRem
                 val current = sharedViewModel.allReminders.value!![viewHolder.adapterPosition]
                 var undoPressed = false
 
-                Snackbar.make(requireView(), getString(R.string.item_deleted), Snackbar.LENGTH_LONG)
-                    .setAction("Undo") {
-                        undoPressed = true
-                        adapter.notifyDataSetChanged()
-                    }
-                    .setAnchorView(fabCreateNewReminder)
-                    .show()
-                sharedViewModel.viewModelScope.launch {
-                    delay(2750) //wait to see if the undo button will get pressed
-                    sharedViewModel.deleteEntry(current, !undoPressed)
-                }
+                sharedViewModel.onReminderSwiped(current)
             }
         }
         ItemTouchHelper(itemTouchHelper).attachToRecyclerView(binding.rvReminderList)
+
+        //collect different events
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+            sharedViewModel.reminderEvents.collect { event ->
+                when (event) {
+                    is SharedViewModel.MainEvents.ShowUndoReminderDeleteMessage -> {
+                        Snackbar.make(requireView(), "Reminder deleted", Snackbar.LENGTH_LONG)
+                            .setAnchorView(fabCreateNewReminder)
+                            .setAction("UNDO") {
+                                sharedViewModel.onUndoDeleteClick(event.reminder)
+                            }.show()
+                    }
+                }
+            }
+        }
 
         fabCreateNewReminder.setOnClickListener {
             val action = MainFragmentDirections.actionMainFragmentToReminderFragment()
@@ -147,12 +171,13 @@ class MainFragment : Fragment(R.layout.fragment_main), ReminderListAdapter.OnRem
         _binding = null
     }
 
-    override fun onItemClickListener(position: Int, reminderId: Int) {
+    override fun onItemClickListener(reminderId: Int, cardView: MaterialCardView) {
         fabCreateNewReminder.hide()
         bottomAppBar.performHide()
 
         val action = MainFragmentDirections.actionMainFragmentToReminderFragment(reminderId)
-        findNavController().navigate(action)
+        val extras = FragmentNavigatorExtras(cardView to "container_card")
+        findNavController().navigate(action, extras)
     }
 
     private fun checkLayoutManager() {
