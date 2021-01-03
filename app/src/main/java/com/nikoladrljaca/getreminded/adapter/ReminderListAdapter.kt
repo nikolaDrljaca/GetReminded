@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.card.MaterialCardView
 import com.nikoladrljaca.getreminded.databinding.ListItemLayoutBinding
+import com.nikoladrljaca.getreminded.utils.dateFromEpoch
 import com.nikoladrljaca.getreminded.viewmodel.Reminder
 import java.text.SimpleDateFormat
 import java.util.*
@@ -69,13 +70,5 @@ class ReminderListAdapter :
 
     fun isListEmpty(): Boolean {
         return listOfReminders.isEmpty()
-    }
-
-    companion object {
-        fun dateFromEpoch(epoch: Long): String {
-            val sdf = SimpleDateFormat("dd.MM.yyyy", Locale.US)
-            val date = Date(epoch)
-            return sdf.format(date)
-        }
     }
 }

@@ -52,10 +52,10 @@ class MainFragment : Fragment(R.layout.fragment_main), ReminderListAdapter.OnRem
         view.doOnPreDraw { startPostponedEnterTransition() }
 
         exitTransition = MaterialElevationScale(false).apply {
-            duration = 300
+            duration = 250
         }
         reenterTransition = MaterialElevationScale(true).apply {
-            duration = 300
+            duration = 250
         }
 
         adapter = ReminderListAdapter()

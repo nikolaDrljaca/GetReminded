@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.addCallback
+import androidx.cardview.widget.CardView
 import androidx.fragment.app.activityViewModels
 import androidx.interpolator.view.animation.FastOutSlowInInterpolator
 import androidx.navigation.fragment.findNavController
@@ -14,12 +15,11 @@ import androidx.navigation.fragment.navArgs
 import androidx.transition.Slide
 import com.google.android.material.color.MaterialColors
 import com.google.android.material.datepicker.MaterialDatePicker
-import com.google.android.material.transition.MaterialArcMotion
 import com.google.android.material.transition.MaterialContainerTransform
 import com.nikoladrljaca.getreminded.R
 import com.nikoladrljaca.getreminded.databinding.FragmentReminderBinding
+import com.nikoladrljaca.getreminded.utils.*
 import com.nikoladrljaca.getreminded.viewmodel.SharedViewModel
-import java.text.SimpleDateFormat
 import java.util.*
 
 class ReminderFragment : Fragment(R.layout.fragment_reminder) {
@@ -59,7 +59,7 @@ class ReminderFragment : Fragment(R.layout.fragment_reminder) {
                 startView = requireActivity().findViewById(R.id.fab_create_new_reminder)
                 endView = binding.reminderDetailCard
                 setAllContainerColors(MaterialColors.getColor(binding.root, R.attr.colorSurface))
-                duration = 300
+                duration = 250
                 interpolator = FastOutSlowInInterpolator()
             }
 
@@ -71,7 +71,8 @@ class ReminderFragment : Fragment(R.layout.fragment_reminder) {
         if (args.reminderId > 0) {
             sharedElementEnterTransition = MaterialContainerTransform().apply {
                 drawingViewId = R.id.nav_host_frag
-                duration = 300
+                duration = 250
+                interpolator = FastOutSlowInInterpolator()
                 setAllContainerColors(MaterialColors.getColor(binding.root, R.attr.colorSurface))
             }
 
@@ -103,11 +104,5 @@ class ReminderFragment : Fragment(R.layout.fragment_reminder) {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
-
-    private fun dateFromEpoch(epoch: Long): String {
-        val sdf = SimpleDateFormat("dd.MM.yyyy", Locale.US)
-        val date = Date(epoch)
-        return sdf.format(date)
     }
 }
