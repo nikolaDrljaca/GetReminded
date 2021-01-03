@@ -17,6 +17,7 @@ You can also download the app on the Play Store:
 * ViewModel
 * LiveData
 * Navigation Component
+* Kotlin Flow and Channels
 
 
 ## License
