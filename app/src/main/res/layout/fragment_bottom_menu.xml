@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/bottom_sheet_app_text"
+        android:gravity="center|start"
+        android:textColor="?android:attr/textColorPrimary"
+        android:fontFamily="@font/opensans_regular"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:maxLines="2"
+        app:drawableStartCompat="@mipmap/ic_launcher_foreground" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="?android:attr/listDivider"
+        />
+
+    <TextView
+        android:id="@+id/tv_deleted_reminders"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:padding="24dp"
+        android:gravity="center|start"
+        android:text="@string/deleted_reminders"
+        android:drawablePadding="16dp"
+        android:textColor="?android:attr/textColorPrimary"
+        android:fontFamily="@font/opensans_regular"
+        android:textSize="16sp"
+        app:drawableStartCompat="@drawable/ic_baseline_delete_24"
+        android:focusable="true" />
+
+    <TextView
+        android:id="@+id/tv_settings"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        android:padding="24dp"
+        android:gravity="center|start"
+        android:text="@string/settings"
+        android:drawablePadding="16dp"
+        android:textColor="?android:attr/textColorPrimary"
+        android:fontFamily="@font/opensans_regular"
+        android:textSize="16sp"
+        app:drawableStartCompat="@drawable/ic_baseline_settings_24" />
+
+    <TextView
+        android:id="@+id/tv_about"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        android:padding="24dp"
+        android:gravity="center|start"
+        android:text="@string/about"
+        android:drawablePadding="16dp"
+        android:textColor="?android:attr/textColorPrimary"
+        android:fontFamily="@font/opensans_regular"
+        android:textSize="16sp"
+        app:drawableStartCompat="@drawable/ic_outline_info_24" />
+
+</LinearLayout>

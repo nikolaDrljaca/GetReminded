@@ -18,13 +18,8 @@
 <!--            app:enterAnim="@anim/slide_in_right"-->
 <!--            app:exitAnim="@anim/slide_out_left"/>-->
         <action
-            android:id="@+id/action_mainFragment_to_settingsFragment"
-            app:destination="@id/settingsFragment"
-            app:enterAnim="@anim/fade_in"
-            app:exitAnim="@anim/fade_out"
-            app:popEnterAnim="@anim/fade_in"
-            app:popExitAnim="@anim/fade_out"
-            />
+            android:id="@+id/action_mainFragment_to_bottomMenuFragment"
+            app:destination="@id/bottomMenuFragment" />
     </fragment>
     <fragment
         android:id="@+id/reminderFragment"
@@ -54,4 +49,19 @@
         android:name="com.nikoladrljaca.getreminded.ui.OpenSourceFragment"
         android:label="fragment_open_source"
         tools:layout="@layout/fragment_open_source" />
+    <dialog
+        android:id="@+id/bottomMenuFragment"
+        android:name="com.nikoladrljaca.getreminded.ui.BottomMenuFragment"
+        android:label="BottomMenuFragment" >
+        <action
+            android:id="@+id/action_bottomMenuFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
+        <action
+            android:id="@+id/action_bottomMenuFragment_to_aboutFragment"
+            app:destination="@id/aboutFragment" />
+    </dialog>
+    <fragment
+        android:id="@+id/aboutFragment"
+        android:name="com.nikoladrljaca.getreminded.ui.AboutFragment"
+        android:label="AboutFragment" />
 </navigation>

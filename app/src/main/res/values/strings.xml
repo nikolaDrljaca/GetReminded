@@ -58,4 +58,15 @@
     <string name="youtube_link">https://www.youtube.com/channel/UCMZCcXF8cNRGFeAYlE0adCQ</string>
     <string name="app_intro_link">https://github.com/AppIntro/AppIntro</string>
     <string name="appintro_library">AppIntro Library</string>
+    <string name="bottom_sheet_app_text">GetReminded\nEveryday. At the right time.</string>
+    <string name="deleted_reminders">Deleted Reminders</string>
+    <string name="about">About</string>
+    <string name="about_the_app">About the app</string>
+    <string name="developers">Developers</string>
+    <string name="nikola_drljaca">Nikola Drljaca</string>
+    <string name="ognjen_drljaca">Ognjen Drljaca</string>
+
+    <string name="github_nikola">https://github.com/nikolaDrljaca</string>
+    <string name="github_ognjen">https://github.com/drljacao96</string>
+    <string name="about_description">Created and maintained by two college students as their first project.\nOffers a different and modern flavor to the note/reminder dynamic.\nFor the time being, new features and updates are planned and all feedback is appreciated.\nWe thank you for downloading the app.\nYou are awesome :D</string>
 </resources>

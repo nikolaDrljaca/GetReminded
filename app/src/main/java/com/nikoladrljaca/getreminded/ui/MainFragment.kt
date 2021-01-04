@@ -151,18 +151,18 @@ class MainFragment : Fragment(R.layout.fragment_main), ReminderListAdapter.OnRem
                     showDeleteAllDialog()
                     true
                 }
-                R.id.bap_settings -> {
-                    fabCreateNewReminder.hide()
-                    bottomAppBar.performHide()
-                    findNavController().navigate(R.id.action_mainFragment_to_settingsFragment)
-                    true
-                }
                 R.id.bap_day_start -> {
                     (activity as MainActivity).showTimePicker()
                     true
                 }
+
                 else -> false
             }
+        }
+
+        bottomAppBar.setNavigationOnClickListener {
+            val action = MainFragmentDirections.actionMainFragmentToBottomMenuFragment()
+            findNavController().navigate(action)
         }
     }
 
