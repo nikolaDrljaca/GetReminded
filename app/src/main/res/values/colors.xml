@@ -15,4 +15,6 @@
     <color name="colorAccentGreen">#00c853</color>
     <color name="colorAccentPurple">#aa00ff</color>
     <color name="colorAccentOrange">#ff9100</color>
+    <color name="colorAccentPink">#c51162</color>
+    <color name="colorAccentTeal">#00bfa5</color>
 </resources>

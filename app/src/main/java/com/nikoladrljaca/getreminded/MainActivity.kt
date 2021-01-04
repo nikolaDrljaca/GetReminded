@@ -65,6 +65,8 @@ class MainActivity : AppCompatActivity() {
         if (colorList == "blue") setTheme(R.style.AppTheme)
         if (colorList == "orange") setTheme(R.style.AppThemeOrange)
         if (colorList == "purple") setTheme(R.style.AppThemePurple)
+        if (colorList == "pink") setTheme(R.style.AppThemePink)
+        if (colorList == "teal") setTheme(R.style.AppThemeTeal)
     }
 
     private fun showStartDialog() {

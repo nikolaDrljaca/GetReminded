@@ -6,6 +6,8 @@
         <item>Green</item>
         <item>Orange</item>
         <item>Purple</item>
+        <item>Pink</item>
+        <item>Teal</item>
     </string-array>
     <string-array name="settings_accent_color_values">
         <item>blue</item>
@@ -13,6 +15,8 @@
         <item>green</item>
         <item>orange</item>
         <item>purple</item>
+        <item>pink</item>
+        <item>teal</item>
     </string-array>
 
     <string-array name="settings_layout_entries">
