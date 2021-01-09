@@ -32,7 +32,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:fontFamily="@font/opensans_regular"
-            android:maxLines="4"
+            android:maxLines="10"
             android:text="@string/note_placeholder"
             android:textColor="?android:attr/textColorPrimary"
             android:textSize="12sp" />

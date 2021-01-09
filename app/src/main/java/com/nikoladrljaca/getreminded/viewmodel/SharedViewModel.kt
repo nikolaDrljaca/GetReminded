@@ -3,37 +3,34 @@ package com.nikoladrljaca.getreminded.viewmodel
 import android.app.Application
 import androidx.lifecycle.*
 import com.nikoladrljaca.getreminded.database.ReminderDatabase
-import com.nikoladrljaca.getreminded.repository.ReminderRepository
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import java.lang.Exception
 
 class SharedViewModel(application: Application) : AndroidViewModel(application) {
-    private val repository: ReminderRepository
-    var allReminders: LiveData<List<Reminder>>
+    private val reminderDao = ReminderDatabase.getDatabase(application, viewModelScope).reminderDao()
+    val allReminders: LiveData<List<Reminder>> = reminderDao.getAllRemindersFlow().asLiveData()
 
     private val _displayReminder = MutableLiveData<Reminder>()
     val displayReminder: LiveData<Reminder> get() = _displayReminder
 
-    init {
-        val reminderDao = ReminderDatabase.getDatabase(application).reminderDao()
-        repository = ReminderRepository(reminderDao)
-        allReminders = repository.allReminders
-    }
-
     fun setDisplayReminder(reminderId: Int) {
         viewModelScope.launch {
-            _displayReminder.value = repository.getReminder(reminderId)
+            _displayReminder.value = reminderDao.getReminder(reminderId)
         }
     }
 
-    fun insert(title: String,
-               exists: Boolean,
-               date: Long,
-               note: String,
-               id: Int) = viewModelScope.launch {
-        if (title.isNotEmpty()) {
+    fun insert(
+        title: String,
+        exists: Boolean,
+        date: Long,
+        note: String,
+        id: Int
+    ) = viewModelScope.launch {
+        if (title.isEmpty() && note.isEmpty()) {
+            reminderEventChannel.send(MainEvents.ShowReminderDiscardedMessage)
+        } else {
             val reminder = Reminder(title, note, date)
             if (exists) {
                 reminder.id = id
@@ -45,7 +42,7 @@ class SharedViewModel(application: Application) : AndroidViewModel(application) 
     private fun updateEntry(reminder: Reminder) {
         try {
             viewModelScope.launch {
-                repository.updateEntry(reminder)
+                reminderDao.updateEntry(reminder)
             }
         } catch (e: Exception) {
 
@@ -55,7 +52,7 @@ class SharedViewModel(application: Application) : AndroidViewModel(application) 
     private fun insert(reminder: Reminder) {
         try {
             viewModelScope.launch {
-                repository.insert(reminder)
+                reminderDao.insert(reminder)
             }
         } catch (e: Exception) {
 
@@ -65,7 +62,7 @@ class SharedViewModel(application: Application) : AndroidViewModel(application) 
     fun deleteAll() {
         try {
             viewModelScope.launch {
-                repository.deleteAll()
+                reminderDao.deleteAll()
             }
         } catch (e: Exception) {
 
@@ -76,15 +73,16 @@ class SharedViewModel(application: Application) : AndroidViewModel(application) 
     val reminderEvents = reminderEventChannel.receiveAsFlow()
 
     fun onReminderSwiped(reminder: Reminder) = viewModelScope.launch {
-        repository.deleteEntry(reminder)
+        reminderDao.deleteEntry(reminder)
         reminderEventChannel.send(MainEvents.ShowUndoReminderDeleteMessage(reminder))
     }
 
     fun onUndoDeleteClick(reminder: Reminder) = viewModelScope.launch {
-        repository.insert(reminder)
+        reminderDao.insert(reminder)
     }
 
     sealed class MainEvents {
         data class ShowUndoReminderDeleteMessage(val reminder: Reminder) : MainEvents()
+        object ShowReminderDiscardedMessage : MainEvents()
     }
 }

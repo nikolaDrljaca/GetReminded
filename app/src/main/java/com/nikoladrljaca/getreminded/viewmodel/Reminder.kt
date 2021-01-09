@@ -11,3 +11,14 @@ data class Reminder (
 ){
     @PrimaryKey(autoGenerate = true) var id: Int? = null
 }
+
+val welcomeReminder = Reminder(
+    title = "Welcome!",
+    note = "Here are a few things to get you started:\n\n" +
+            "*To delete a reminder, just swipe it to any side!\n\n" +
+            "*To save a reminder, just go back, all changes are saved automatically!\n\n" +
+            "*You can always change the time using the clock in the bottom corner\n\n" +
+            "*The notes are ordered by date\n\n" +
+            "*Ignore the date below, this app cannot time-travel. Though it would be cool if it could :D",
+    date = 1
+)

@@ -1,13 +1,10 @@
 package com.nikoladrljaca.getreminded.ui
 
-import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.View
 import android.widget.TextView
-import android.widget.Toast
 import androidx.activity.addCallback
-import androidx.cardview.widget.CardView
 import androidx.fragment.app.activityViewModels
 import androidx.interpolator.view.animation.FastOutSlowInInterpolator
 import androidx.navigation.fragment.findNavController
@@ -25,7 +22,7 @@ import java.util.*
 class ReminderFragment : Fragment(R.layout.fragment_reminder) {
     private var _binding: FragmentReminderBinding? = null
     private val binding get() = _binding!!
-    private val sharedViewModel by activityViewModels<SharedViewModel>()
+    private val sharedViewModel: SharedViewModel by activityViewModels()
 
     private val args: ReminderFragmentArgs by navArgs()
     private var reminderExists = false

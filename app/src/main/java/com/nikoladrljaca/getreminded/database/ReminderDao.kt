@@ -3,6 +3,7 @@ package com.nikoladrljaca.getreminded.database
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.nikoladrljaca.getreminded.viewmodel.Reminder
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface ReminderDao {
@@ -19,7 +20,7 @@ interface ReminderDao {
     suspend fun updateEntry(reminder: Reminder)
 
     @Query("SELECT * from reminder_table ORDER BY date DESC")
-    fun getAllReminders(): LiveData<List<Reminder>>
+    fun getAllRemindersFlow(): Flow<List<Reminder>>
 
     @Query("SELECT * FROM reminder_table WHERE id=:id")
     suspend fun getReminder(id: Int): Reminder
