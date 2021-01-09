@@ -38,11 +38,11 @@
             android:textSize="18sp" />
 
         <TextView
+            android:id="@+id/tv_version"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fontFamily="@font/opensans_regular"
             android:gravity="center"
-            android:text="Version 6"
             android:textColor="?android:attr/textColorPrimary"
             android:textSize="12sp" />
 
