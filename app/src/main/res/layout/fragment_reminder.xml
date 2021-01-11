@@ -30,8 +30,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:transitionName="detail_note"
-            tools:context=".ui.ReminderFragment">
+            android:padding="4dp"
+            android:transitionName="detail_note">
 
             <EditText
                 android:id="@+id/et_reminder_title"
@@ -74,7 +74,7 @@
                 android:gravity="center"
                 android:padding="8dp"
                 android:textColor="?android:attr/textColorPrimary"
-                android:textSize="16dp"
+                android:textSize="16sp"
                 tools:text="@string/date_display"
                 app:layout_constraintBottom_toTopOf="@id/button_container"/>
 

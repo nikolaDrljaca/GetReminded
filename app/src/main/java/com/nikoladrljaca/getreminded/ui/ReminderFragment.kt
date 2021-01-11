@@ -56,19 +56,20 @@ class ReminderFragment : Fragment(R.layout.fragment_reminder) {
                 startView = requireActivity().findViewById(R.id.fab_create_new_reminder)
                 endView = binding.reminderDetailCard
                 setAllContainerColors(MaterialColors.getColor(binding.root, R.attr.colorSurface))
-                duration = 250
+                duration = ANIM_DURATION
                 interpolator = FastOutSlowInInterpolator()
             }
 
             returnTransition = Slide().apply {
                 addTarget(R.id.reminder_detail_card)
+                duration = ANIM_DURATION
             }
         }
         //an argument was passed
         if (args.reminderId > 0) {
             sharedElementEnterTransition = MaterialContainerTransform().apply {
                 drawingViewId = R.id.nav_host_frag
-                duration = 250
+                duration = ANIM_DURATION
                 interpolator = FastOutSlowInInterpolator()
                 setAllContainerColors(MaterialColors.getColor(binding.root, R.attr.colorSurface))
             }

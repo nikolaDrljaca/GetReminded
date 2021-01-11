@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.lifecycle.*
 import com.nikoladrljaca.getreminded.database.ReminderDatabase
 import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import java.lang.Exception
@@ -29,6 +30,7 @@ class SharedViewModel(application: Application) : AndroidViewModel(application) 
         id: Int
     ) = viewModelScope.launch {
         if (title.isEmpty() && note.isEmpty()) {
+            delay(300) //this delay causes the snackbar to appear properly above the FAB
             reminderEventChannel.send(MainEvents.ShowReminderDiscardedMessage)
         } else {
             val reminder = Reminder(title, note, date)

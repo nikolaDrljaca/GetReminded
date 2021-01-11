@@ -30,6 +30,7 @@ import com.nikoladrljaca.getreminded.MainActivity
 import com.nikoladrljaca.getreminded.R
 import com.nikoladrljaca.getreminded.adapter.ReminderAdapter
 import com.nikoladrljaca.getreminded.databinding.FragmentMainBinding
+import com.nikoladrljaca.getreminded.utils.ANIM_DURATION
 import com.nikoladrljaca.getreminded.viewmodel.Reminder
 import com.nikoladrljaca.getreminded.viewmodel.SharedViewModel
 import com.nikoladrljaca.getreminded.viewmodel.welcomeReminder
@@ -59,10 +60,10 @@ class MainFragment : Fragment(R.layout.fragment_main), ReminderAdapter.OnItemCli
         view.doOnPreDraw { startPostponedEnterTransition() }
 
         exitTransition = MaterialElevationScale(false).apply {
-            duration = 250
+            duration = ANIM_DURATION
         }
         reenterTransition = MaterialElevationScale(true).apply {
-            duration = 250
+            duration = ANIM_DURATION
         }
 
         adapter = ReminderAdapter(this)
