@@ -2,21 +2,14 @@ package com.nikoladrljaca.getreminded.ui
 
 import android.app.AlertDialog
 import android.os.Bundle
-import android.util.Log
-import android.view.LayoutInflater
 import androidx.fragment.app.Fragment
 import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.view.doOnPreDraw
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.NavOptions
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.preference.PreferenceManager
@@ -33,12 +26,9 @@ import com.nikoladrljaca.getreminded.databinding.FragmentMainBinding
 import com.nikoladrljaca.getreminded.utils.ANIM_DURATION
 import com.nikoladrljaca.getreminded.viewmodel.Reminder
 import com.nikoladrljaca.getreminded.viewmodel.SharedViewModel
-import com.nikoladrljaca.getreminded.viewmodel.welcomeReminder
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
 import java.util.*
-import java.util.function.Predicate
+
 
 class MainFragment : Fragment(R.layout.fragment_main), ReminderAdapter.OnItemClickListener {
     private var _binding: FragmentMainBinding? = null
@@ -138,7 +128,7 @@ class MainFragment : Fragment(R.layout.fragment_main), ReminderAdapter.OnItemCli
                         Snackbar.make(requireView(), "Reminder deleted", Snackbar.LENGTH_LONG)
                             .setAnchorView(fabCreateNewReminder)
                             .setAction("UNDO") {
-                                sharedViewModel.onUndoDeleteClick(event.reminder)
+                                sharedViewModel.onUndoDeleteClick(event.reminder, event.deletedReminder)
                             }.show()
                     }
                     is SharedViewModel.MainEvents.ShowReminderDiscardedMessage -> {
@@ -191,6 +181,10 @@ class MainFragment : Fragment(R.layout.fragment_main), ReminderAdapter.OnItemCli
         val action = MainFragmentDirections.actionMainFragmentToReminderFragment(reminderId)
         val extras = FragmentNavigatorExtras(card to "container_card")
         findNavController().navigate(action, extras)
+    }
+
+    override fun onItemLongClick(reminderId: Int) {
+        Toast.makeText(requireContext(), "long click $reminderId", Toast.LENGTH_SHORT).show()
     }
 
     private fun checkLayoutManager() {

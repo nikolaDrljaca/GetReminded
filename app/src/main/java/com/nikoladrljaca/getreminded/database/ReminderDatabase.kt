@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.room.*
 import androidx.sqlite.db.SupportSQLiteDatabase
 import androidx.sqlite.db.SupportSQLiteOpenHelper
+import com.nikoladrljaca.getreminded.viewmodel.DeletedReminder
 import com.nikoladrljaca.getreminded.viewmodel.Reminder
 import com.nikoladrljaca.getreminded.viewmodel.welcomeReminder
 import kotlinx.coroutines.CoroutineScope
@@ -13,7 +14,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.util.concurrent.Executors
 
-@Database(entities = arrayOf(Reminder::class), version = 1, exportSchema = false)
+@Database(entities = arrayOf(Reminder::class, DeletedReminder::class), version = 3, exportSchema = false)
 public abstract class ReminderDatabase: RoomDatabase() {
 
     abstract fun reminderDao(): ReminderDao
@@ -32,7 +33,7 @@ public abstract class ReminderDatabase: RoomDatabase() {
                     "reminder_database"
                 )
                     .addCallback(ReminderDatabaseCallback(scope))
-                    .fallbackToDestructiveMigration()
+                    .addMigrations(MIGRATION_1_2, MIGRATION_2_3)
                     .build()
                 INSTANCE = instance
                 return instance
@@ -47,7 +48,6 @@ public abstract class ReminderDatabase: RoomDatabase() {
             super.onCreate(db)
             INSTANCE?.let { database ->
                 scope.launch {
-                    Log.d("_DEBUGGING", "onCreate: room database first creation")
                     val dao = database.reminderDao()
                     dao.insert(welcomeReminder)
                 }

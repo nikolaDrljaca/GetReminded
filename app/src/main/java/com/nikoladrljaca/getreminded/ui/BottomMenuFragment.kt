@@ -33,7 +33,8 @@ class BottomMenuFragment : BottomSheetDialogFragment() {
             }
 
             tvDeletedReminders.setOnClickListener {
-                Toast.makeText(requireContext(), "Coming soon!", Toast.LENGTH_SHORT).show()
+                val action = BottomMenuFragmentDirections.actionBottomMenuFragmentToDeletedRemindersFragment()
+                findNavController().navigate(action)
             }
 
             tvSettings.setOnClickListener {

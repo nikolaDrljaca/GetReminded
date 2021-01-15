@@ -59,9 +59,16 @@
         <action
             android:id="@+id/action_bottomMenuFragment_to_aboutFragment"
             app:destination="@id/aboutFragment" />
+        <action
+            android:id="@+id/action_bottomMenuFragment_to_deletedRemindersFragment"
+            app:destination="@id/deletedRemindersFragment" />
     </dialog>
     <fragment
         android:id="@+id/aboutFragment"
         android:name="com.nikoladrljaca.getreminded.ui.AboutFragment"
         android:label="AboutFragment" />
+    <fragment
+        android:id="@+id/deletedRemindersFragment"
+        android:name="com.nikoladrljaca.getreminded.ui.DeletedRemindersFragment"
+        android:label="DeletedRemindersFragment" />
 </navigation>

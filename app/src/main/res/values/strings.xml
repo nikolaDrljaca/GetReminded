@@ -69,4 +69,5 @@
     <string name="github_nikola">https://github.com/nikolaDrljaca</string>
     <string name="github_ognjen">https://github.com/drljacao96</string>
     <string name="about_description">Created and maintained by two college students as their first project.\nOffers a different and modern flavor to the note/reminder dynamic.\nFor the time being, new features and updates are planned and all feedback is appreciated.\nWe thank you for downloading the app.\nYou are awesome :D</string>
+    <string name="nothing_to_show_deleted">Nothing to show here.</string>
 </resources>

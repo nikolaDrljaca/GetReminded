@@ -12,6 +12,14 @@ data class Reminder (
     @PrimaryKey(autoGenerate = true) var id: Int? = null
 }
 
+@Entity(tableName = "deleted_reminder_table")
+data class DeletedReminder (
+    @PrimaryKey val id: Int,
+    val title: String,
+    val note: String,
+    val date: Long
+)
+
 val welcomeReminder = Reminder(
     title = "Welcome!",
     note = "Here are a few things to get you started:\n\n" +

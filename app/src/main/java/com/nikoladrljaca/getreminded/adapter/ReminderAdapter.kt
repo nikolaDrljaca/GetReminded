@@ -28,10 +28,20 @@ class ReminderAdapter(private val listener: OnItemClickListener) :
         //it would execute each time a new list item is passed, this way this is only done
         //when a new viewHolder for multiple items is created
         init {
-            binding.card.setOnClickListener {
-                if (adapterPosition != RecyclerView.NO_POSITION) {
-                    val reminderId = getItem(adapterPosition).id!!
-                    listener.onItemClick(reminderId, binding.card)
+            binding.apply {
+                card.setOnClickListener {
+                    if (adapterPosition != RecyclerView.NO_POSITION) {
+                        val reminderId = getItem(adapterPosition).id!!
+                        listener.onItemClick(reminderId, binding.card)
+                    }
+                }
+
+                card.setOnLongClickListener {
+                    if (adapterPosition != RecyclerView.NO_POSITION) {
+                        val reminderId = getItem(adapterPosition).id!!
+                        listener.onItemLongClick(reminderId)
+                    }
+                    true
                 }
             }
         }
@@ -58,5 +68,6 @@ class ReminderAdapter(private val listener: OnItemClickListener) :
 
     interface OnItemClickListener {
         fun onItemClick(reminderId: Int, card: MaterialCardView)
+        fun onItemLongClick(reminderId: Int)
     }
 }

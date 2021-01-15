@@ -3,6 +3,7 @@ package com.nikoladrljaca.getreminded.viewmodel
 import android.app.Application
 import androidx.lifecycle.*
 import com.nikoladrljaca.getreminded.database.ReminderDatabase
+import com.nikoladrljaca.getreminded.utils.mapFromReminderToDeletedReminder
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.receiveAsFlow
@@ -64,6 +65,9 @@ class SharedViewModel(application: Application) : AndroidViewModel(application) 
     fun deleteAll() {
         try {
             viewModelScope.launch {
+                allReminders.value!!.forEach { reminder ->
+                    reminderDao.insert(mapFromReminderToDeletedReminder(reminder))
+                }
                 reminderDao.deleteAll()
             }
         } catch (e: Exception) {
@@ -75,16 +79,20 @@ class SharedViewModel(application: Application) : AndroidViewModel(application) 
     val reminderEvents = reminderEventChannel.receiveAsFlow()
 
     fun onReminderSwiped(reminder: Reminder) = viewModelScope.launch {
+        reminderDao.insert(mapFromReminderToDeletedReminder(reminder))
         reminderDao.deleteEntry(reminder)
         reminderEventChannel.send(MainEvents.ShowUndoReminderDeleteMessage(reminder))
     }
 
-    fun onUndoDeleteClick(reminder: Reminder) = viewModelScope.launch {
+    fun onUndoDeleteClick(reminder: Reminder, deletedReminder: DeletedReminder) = viewModelScope.launch {
+        reminderDao.deleteEntry(deletedReminder)
         reminderDao.insert(reminder)
     }
 
     sealed class MainEvents {
-        data class ShowUndoReminderDeleteMessage(val reminder: Reminder) : MainEvents()
+        data class ShowUndoReminderDeleteMessage(val reminder: Reminder) : MainEvents() {
+            val deletedReminder = mapFromReminderToDeletedReminder(reminder)
+        }
         object ShowReminderDiscardedMessage : MainEvents()
     }
 }
