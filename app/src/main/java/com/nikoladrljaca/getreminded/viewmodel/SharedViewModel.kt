@@ -42,6 +42,13 @@ class SharedViewModel(application: Application) : AndroidViewModel(application) 
         }
     }
 
+    fun insert(position: Int) {
+        allReminders.value?.let { list ->
+            val reminder = list[position].copy()
+            insert(reminder)
+        }
+    }
+
     private fun updateEntry(reminder: Reminder) {
         try {
             viewModelScope.launch {
@@ -78,6 +85,12 @@ class SharedViewModel(application: Application) : AndroidViewModel(application) 
     private val reminderEventChannel = Channel<MainEvents>()
     val reminderEvents = reminderEventChannel.receiveAsFlow()
 
+    fun onDeleteReminderClicked(position: Int) {
+        allReminders.value?.let { list ->
+            onReminderSwiped(list[position])
+        }
+    }
+
     fun onReminderSwiped(reminder: Reminder) = viewModelScope.launch {
         reminderDao.insert(mapFromReminderToDeletedReminder(reminder))
         reminderDao.deleteEntry(reminder)
@@ -89,10 +102,17 @@ class SharedViewModel(application: Application) : AndroidViewModel(application) 
         reminderDao.insert(reminder)
     }
 
+    fun onShareReminderClicked(position: Int) = viewModelScope.launch {
+        allReminders.value?.let { list ->
+            reminderEventChannel.send(MainEvents.ShareReminderMenuItemClicked(list[position]))
+        }
+    }
+
     sealed class MainEvents {
         data class ShowUndoReminderDeleteMessage(val reminder: Reminder) : MainEvents() {
             val deletedReminder = mapFromReminderToDeletedReminder(reminder)
         }
         object ShowReminderDiscardedMessage : MainEvents()
+        data class ShareReminderMenuItemClicked(val reminder: Reminder): MainEvents()
     }
 }

@@ -1,7 +1,11 @@
 package com.nikoladrljaca.getreminded.ui
 
 import android.app.AlertDialog
+import android.content.Intent
 import android.os.Bundle
+import android.view.ContextMenu
+import android.view.MenuInflater
+import android.view.MenuItem
 import androidx.fragment.app.Fragment
 import android.view.View
 import android.widget.Toast
@@ -24,6 +28,9 @@ import com.nikoladrljaca.getreminded.R
 import com.nikoladrljaca.getreminded.adapter.ReminderAdapter
 import com.nikoladrljaca.getreminded.databinding.FragmentMainBinding
 import com.nikoladrljaca.getreminded.utils.ANIM_DURATION
+import com.nikoladrljaca.getreminded.utils.COPY_CONTEXT_MENU_ID
+import com.nikoladrljaca.getreminded.utils.DELETE_CONTEXT_MENU_ID
+import com.nikoladrljaca.getreminded.utils.SHARE_CONTEXT_MENU_ID
 import com.nikoladrljaca.getreminded.viewmodel.Reminder
 import com.nikoladrljaca.getreminded.viewmodel.SharedViewModel
 import kotlinx.coroutines.flow.collect
@@ -136,6 +143,9 @@ class MainFragment : Fragment(R.layout.fragment_main), ReminderAdapter.OnItemCli
                             .setAnchorView(fabCreateNewReminder)
                             .show()
                     }
+                    is SharedViewModel.MainEvents.ShareReminderMenuItemClicked -> {
+                        shareReminderIntent(event.reminder)
+                    }
                 }
             }
         }
@@ -174,6 +184,27 @@ class MainFragment : Fragment(R.layout.fragment_main), ReminderAdapter.OnItemCli
         _binding = null
     }
 
+    //handle context clicks from rv, group id contains the adapter position of item clicked
+    override fun onContextItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            SHARE_CONTEXT_MENU_ID -> {
+                sharedViewModel.onShareReminderClicked(item.groupId)
+                true
+            }
+            DELETE_CONTEXT_MENU_ID -> {
+                sharedViewModel.onDeleteReminderClicked(item.groupId)
+                true
+            }
+            COPY_CONTEXT_MENU_ID -> {
+                sharedViewModel.insert(item.groupId)
+                true
+            }
+            else -> {
+                super.onContextItemSelected(item)
+            }
+        }
+    }
+
     override fun onItemClick(reminderId: Int, card: MaterialCardView) {
         fabCreateNewReminder.hide()
         bottomAppBar.performHide()
@@ -183,8 +214,15 @@ class MainFragment : Fragment(R.layout.fragment_main), ReminderAdapter.OnItemCli
         findNavController().navigate(action, extras)
     }
 
-    override fun onItemLongClick(reminderId: Int) {
-        Toast.makeText(requireContext(), "long click $reminderId", Toast.LENGTH_SHORT).show()
+    private fun shareReminderIntent(reminder: Reminder) {
+        val textToShare = "${reminder.title}\n${reminder.note}"
+        val sendIntent = Intent().apply {
+            action = Intent.ACTION_SEND
+            putExtra(Intent.EXTRA_TEXT, textToShare)
+            type = "text/plain"
+        }
+        val shareIntent = Intent.createChooser(sendIntent, null)
+        startActivity(shareIntent)
     }
 
     private fun checkLayoutManager() {

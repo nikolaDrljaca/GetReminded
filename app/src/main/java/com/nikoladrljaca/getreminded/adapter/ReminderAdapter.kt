@@ -1,13 +1,15 @@
 package com.nikoladrljaca.getreminded.adapter
 
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.card.MaterialCardView
+import com.nikoladrljaca.getreminded.R
 import com.nikoladrljaca.getreminded.databinding.ListItemLayoutBinding
+import com.nikoladrljaca.getreminded.utils.COPY_CONTEXT_MENU_ID
+import com.nikoladrljaca.getreminded.utils.DELETE_CONTEXT_MENU_ID
+import com.nikoladrljaca.getreminded.utils.SHARE_CONTEXT_MENU_ID
 import com.nikoladrljaca.getreminded.utils.dateFromEpoch
 import com.nikoladrljaca.getreminded.viewmodel.Reminder
 
@@ -23,7 +25,8 @@ class ReminderAdapter(private val listener: OnItemClickListener) :
         holder.bind(getItem(position))
     }
 
-    inner class ViewHolder(private val binding: ListItemLayoutBinding): RecyclerView.ViewHolder(binding.root) {
+    inner class ViewHolder(private val binding: ListItemLayoutBinding) :
+        RecyclerView.ViewHolder(binding.root),View.OnCreateContextMenuListener  {
         //this is for performance purposes, if the click was defined in the bind method
         //it would execute each time a new list item is passed, this way this is only done
         //when a new viewHolder for multiple items is created
@@ -35,14 +38,6 @@ class ReminderAdapter(private val listener: OnItemClickListener) :
                         listener.onItemClick(reminderId, binding.card)
                     }
                 }
-
-                card.setOnLongClickListener {
-                    if (adapterPosition != RecyclerView.NO_POSITION) {
-                        val reminderId = getItem(adapterPosition).id!!
-                        listener.onItemLongClick(reminderId)
-                    }
-                    true
-                }
             }
         }
 
@@ -52,15 +47,28 @@ class ReminderAdapter(private val listener: OnItemClickListener) :
                 tvReminderNote.text = reminder.note
                 tvReminderDate.text = dateFromEpoch(reminder.date)
                 card.transitionName = reminder.id.toString()
+                card.setOnCreateContextMenuListener(this@ViewHolder)
 
                 if (tvReminderNote.text.toString().isEmpty()) {
                     tvReminderNote.visibility = View.GONE
                 }
             }
         }
+
+        override fun onCreateContextMenu(
+            menu: ContextMenu?,
+            v: View?,
+            menuInfo: ContextMenu.ContextMenuInfo?
+        ) {
+            //first parameter is adapter position so that the frag can have access to it via groupId
+            menu?.setHeaderTitle("Options")
+            menu?.add(this.adapterPosition, SHARE_CONTEXT_MENU_ID, 0, "Share")
+            menu?.add(this.adapterPosition, DELETE_CONTEXT_MENU_ID, 0, "Delete")
+            menu?.add(this.adapterPosition, COPY_CONTEXT_MENU_ID, 0, "Make a copy")
+        }
     }
 
-    class DiffCallback: DiffUtil.ItemCallback<Reminder> () {
+    class DiffCallback : DiffUtil.ItemCallback<Reminder>() {
         override fun areItemsTheSame(oldItem: Reminder, newItem: Reminder) = (oldItem.id) == (newItem.id)
 
         override fun areContentsTheSame(oldItem: Reminder, newItem: Reminder) = oldItem == newItem
@@ -68,6 +76,5 @@ class ReminderAdapter(private val listener: OnItemClickListener) :
 
     interface OnItemClickListener {
         fun onItemClick(reminderId: Int, card: MaterialCardView)
-        fun onItemLongClick(reminderId: Int)
     }
 }
