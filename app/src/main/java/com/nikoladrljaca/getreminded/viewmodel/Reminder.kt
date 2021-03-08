@@ -1,5 +1,7 @@
 package com.nikoladrljaca.getreminded.viewmodel
 
+import android.graphics.Color
+import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
@@ -7,7 +9,8 @@ import androidx.room.PrimaryKey
 data class Reminder (
     val title: String,
     val note: String,
-    val date: Long
+    val date: Long,
+    @ColumnInfo(name = "color") val color: Int = 0 //keep in mind that Color.TRANSPARENT is 0
 ){
     @PrimaryKey(autoGenerate = true) var id: Int? = null
 }

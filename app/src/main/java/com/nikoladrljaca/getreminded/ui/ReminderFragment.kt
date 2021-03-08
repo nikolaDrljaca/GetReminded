@@ -1,9 +1,11 @@
 package com.nikoladrljaca.getreminded.ui
 
+import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.View
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.fragment.app.activityViewModels
 import androidx.interpolator.view.animation.FastOutSlowInInterpolator
@@ -17,6 +19,7 @@ import com.nikoladrljaca.getreminded.R
 import com.nikoladrljaca.getreminded.databinding.FragmentReminderBinding
 import com.nikoladrljaca.getreminded.utils.*
 import com.nikoladrljaca.getreminded.viewmodel.SharedViewModel
+import dev.sasikanth.colorsheet.ColorSheet
 import java.util.*
 
 class ReminderFragment : Fragment(R.layout.fragment_reminder) {
@@ -39,7 +42,8 @@ class ReminderFragment : Fragment(R.layout.fragment_reminder) {
                 note = binding.etReminderNote.text.toString(),
                 exists = args.reminderId > 0,
                 id = reminderId,
-                date = date
+                date = date,
+
             )
             findNavController().navigateUp()
         }
@@ -81,22 +85,37 @@ class ReminderFragment : Fragment(R.layout.fragment_reminder) {
                     etReminderTitle.setText(it.title, TextView.BufferType.EDITABLE)
                     etReminderNote.setText(it.note, TextView.BufferType.EDITABLE)
                     tvReminderDate.text = dateFromEpoch(date)
+                    constraintLayout.setBackgroundColor(it.color)
                     reminderId = it.id!!
                     reminderExists = true
                 }
             }
         }
 
-        binding.btnSelectDate.setOnClickListener {
-            val builder = MaterialDatePicker.Builder.datePicker()
-            val picker = builder.build()
-            picker.show(parentFragmentManager, picker.toString())
+        binding.apply {
+            btnSelectDate.setOnClickListener {
+                val builder = MaterialDatePicker.Builder.datePicker()
+                val picker = builder.build()
+                picker.show(parentFragmentManager, picker.toString())
 
-            picker.addOnPositiveButtonClickListener {
-                date = it
-                binding.tvReminderDate.text = getString(R.string.date_display, dateFromEpoch(date))
+                picker.addOnPositiveButtonClickListener {
+                    date = it
+                    binding.tvReminderDate.text = getString(R.string.date_display, dateFromEpoch(date))
+                }
+            }
+
+            btnSelectColor.setOnClickListener {
+                ColorSheet().colorPicker(
+                    colors = colorListInInts,
+                    noColorOption = true,
+                    listener = { color ->
+                        sharedViewModel.setCardColor(color)
+                        constraintLayout.setBackgroundColor(color)
+                    }
+                ).show(requireActivity().supportFragmentManager)
             }
         }
+
     }
 
     override fun onDestroyView() {

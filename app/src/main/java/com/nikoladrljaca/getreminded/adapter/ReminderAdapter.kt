@@ -1,17 +1,18 @@
 package com.nikoladrljaca.getreminded.adapter
 
+import android.content.Context
+import android.content.res.ColorStateList
 import android.graphics.Color
+import android.util.Log
 import android.view.*
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.card.MaterialCardView
 import com.nikoladrljaca.getreminded.R
 import com.nikoladrljaca.getreminded.databinding.ListItemLayoutBinding
-import com.nikoladrljaca.getreminded.utils.COPY_CONTEXT_MENU_ID
-import com.nikoladrljaca.getreminded.utils.DELETE_CONTEXT_MENU_ID
-import com.nikoladrljaca.getreminded.utils.SHARE_CONTEXT_MENU_ID
-import com.nikoladrljaca.getreminded.utils.dateFromEpoch
+import com.nikoladrljaca.getreminded.utils.*
 import com.nikoladrljaca.getreminded.viewmodel.Reminder
 
 class ReminderAdapter(private val listener: OnItemClickListener) :
@@ -19,15 +20,17 @@ class ReminderAdapter(private val listener: OnItemClickListener) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = ListItemLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return ViewHolder(binding)
+        return ViewHolder(binding, parent.context)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(getItem(position))
     }
 
-    inner class ViewHolder(private val binding: ListItemLayoutBinding) :
-        RecyclerView.ViewHolder(binding.root),View.OnCreateContextMenuListener  {
+    inner class ViewHolder(
+        private val binding: ListItemLayoutBinding,
+        private val context: Context
+    ) : RecyclerView.ViewHolder(binding.root), View.OnCreateContextMenuListener {
         //this is for performance purposes, if the click was defined in the bind method
         //it would execute each time a new list item is passed, this way this is only done
         //when a new viewHolder for multiple items is created
@@ -48,7 +51,10 @@ class ReminderAdapter(private val listener: OnItemClickListener) :
                 tvReminderNote.text = reminder.note
                 tvReminderDate.text = dateFromEpoch(reminder.date)
                 card.transitionName = reminder.id.toString()
-                card.setCardBackgroundColor(Color.RED)
+                //change color of the layout, since the card wont do it
+                //this color should be grabbed from the reminder itself
+                //a raw color int will be provided here
+                cardLayout.setBackgroundColor(reminder.color)
                 card.setOnCreateContextMenuListener(this@ViewHolder)
 
                 if (tvReminderNote.text.toString().isEmpty()) {

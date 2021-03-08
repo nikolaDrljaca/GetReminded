@@ -27,6 +27,7 @@
         app:cardElevation="4dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraint_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
@@ -97,10 +98,24 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     android:text="@string/select_date"
-                    android:textColor="?android:attr/colorAccent"
+                    android:textColor="@color/colorNoteTextButton"
                     app:icon="@drawable/ic_baseline_calendar_today_24"
                     app:iconGravity="textStart"
-                    app:iconTint="?android:attr/colorAccent" />
+                    app:iconTint="@color/colorNoteTextButton" />
+
+                <Button
+                    android:id="@+id/btn_select_color"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/color"
+                    android:textColor="@color/colorNoteTextButton"
+                    app:icon="@drawable/ic_round_color_lens_24"
+                    app:iconGravity="textStart"
+                    app:iconTint="@color/colorNoteTextButton" />
             </LinearLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>

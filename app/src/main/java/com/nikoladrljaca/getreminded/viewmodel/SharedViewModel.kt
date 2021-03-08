@@ -17,9 +17,13 @@ class SharedViewModel(application: Application) : AndroidViewModel(application) 
     private val _displayReminder = MutableLiveData<Reminder>()
     val displayReminder: LiveData<Reminder> get() = _displayReminder
 
+    private var cardColor = 0
+
     fun setDisplayReminder(reminderId: Int) {
         viewModelScope.launch {
-            _displayReminder.value = reminderDao.getReminder(reminderId)
+            val note = reminderDao.getReminder(reminderId)
+            _displayReminder.value = note
+            cardColor = note.color
         }
     }
 
@@ -28,13 +32,13 @@ class SharedViewModel(application: Application) : AndroidViewModel(application) 
         exists: Boolean,
         date: Long,
         note: String,
-        id: Int
+        id: Int,
     ) = viewModelScope.launch {
         if (title.isEmpty() && note.isEmpty()) {
             delay(300) //this delay causes the snackbar to appear properly above the FAB
             reminderEventChannel.send(MainEvents.ShowReminderDiscardedMessage)
         } else {
-            val reminder = Reminder(title, note, date)
+            val reminder = Reminder(title = title, note = note, date = date, color = cardColor)
             if (exists) {
                 reminder.id = id
                 updateEntry(reminder)
@@ -47,6 +51,10 @@ class SharedViewModel(application: Application) : AndroidViewModel(application) 
             val reminder = list[position].copy()
             insert(reminder)
         }
+    }
+
+    fun setCardColor(color: Int) {
+        cardColor = color
     }
 
     private fun updateEntry(reminder: Reminder) {

@@ -14,7 +14,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.util.concurrent.Executors
 
-@Database(entities = arrayOf(Reminder::class, DeletedReminder::class), version = 3, exportSchema = false)
+@Database(entities = arrayOf(Reminder::class, DeletedReminder::class), version = 4, exportSchema = false)
 public abstract class ReminderDatabase: RoomDatabase() {
 
     abstract fun reminderDao(): ReminderDao
@@ -33,7 +33,7 @@ public abstract class ReminderDatabase: RoomDatabase() {
                     "reminder_database"
                 )
                     .addCallback(ReminderDatabaseCallback(scope))
-                    .addMigrations(MIGRATION_1_2, MIGRATION_2_3)
+                    .addMigrations(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4)
                     .build()
                 INSTANCE = instance
                 return instance
