@@ -26,6 +26,11 @@
             app:key="dark_mode_switch"
             app:title="Dark mode" />
 
+        <SwitchPreferenceCompat
+            app:icon="@drawable/ic_baseline_notifications_paused_24"
+            app:key="mute_notify"
+            app:title="Mute Notifications" />
+
         <ListPreference
             app:entries="@array/settings_layout_entries"
             app:entryValues="@array/settings_layout_values"

@@ -40,6 +40,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
         val bugReport: Preference? = findPreference("bug_report")
         //val instagram: Preference? = findPreference("")
         //implement the settings here?
+        val muteNotify: Preference? = findPreference("mute_notify")
 
         val shared = PreferenceManager.getDefaultSharedPreferences(requireContext())
         val calendar = Calendar.getInstance()

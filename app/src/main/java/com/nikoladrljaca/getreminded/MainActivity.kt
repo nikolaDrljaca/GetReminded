@@ -119,6 +119,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun startAlarm(calendar: Calendar) {
+        val shared = PreferenceManager.getDefaultSharedPreferences(this)
+        val isMuted = shared.getBoolean("mute_notify", false)
+
         val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val intent = Intent(this, AlertReceiver::class.java)
         val pendingIntent = PendingIntent.getBroadcast(this, 1, intent, 0)
@@ -129,6 +132,9 @@ class MainActivity : AppCompatActivity() {
             AlarmManager.INTERVAL_DAY, //this is the repeating interval
             pendingIntent
         )
+
+        //this will cancel the notification if that is selected in settings
+        if (isMuted) alarmManager.cancel(pendingIntent)
     }
 
     companion object {
