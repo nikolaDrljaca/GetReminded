@@ -1,5 +1,6 @@
 package com.nikoladrljaca.getreminded.adapter
 
+import android.graphics.Color
 import android.view.*
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -47,6 +48,7 @@ class ReminderAdapter(private val listener: OnItemClickListener) :
                 tvReminderNote.text = reminder.note
                 tvReminderDate.text = dateFromEpoch(reminder.date)
                 card.transitionName = reminder.id.toString()
+                card.setCardBackgroundColor(Color.RED)
                 card.setOnCreateContextMenuListener(this@ViewHolder)
 
                 if (tvReminderNote.text.toString().isEmpty()) {
