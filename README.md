@@ -3,6 +3,12 @@ A simple reminder/note taking application built with the latest
 Android Architecture Components.
 Created by a university student looking to improve his skills.
 
+## Screenshots
+<img src="screenshots/screen_1" width="40%" />
+<img src="screenshots/screen_2" width="40%" />
+<img src="screenshots/screen_3" width="40%" />
+<img src="screenshots/screen_4" width="40%" />
+
 ## Installation/Download
 Clone this repository or download the zip file and import into **Android Studio**.
 You can also download the app on the Play Store:
