@@ -1,6 +1,6 @@
 package com.nikoladrljaca.getreminded.viewmodel
 
-import android.graphics.Color
+
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey

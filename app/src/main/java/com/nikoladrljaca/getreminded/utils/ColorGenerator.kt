@@ -1,8 +1,6 @@
 package com.nikoladrljaca.getreminded.utils
 
 import android.graphics.Color
-import com.nikoladrljaca.getreminded.R
-import kotlin.random.Random
 
 val colorListInInts = intArrayOf(
     Color.parseColor("#e57373"),

@@ -1,18 +1,17 @@
 package com.nikoladrljaca.getreminded.database
 
 import android.content.Context
-import android.util.Log
+
 import androidx.room.*
 import androidx.sqlite.db.SupportSQLiteDatabase
-import androidx.sqlite.db.SupportSQLiteOpenHelper
+
 import com.nikoladrljaca.getreminded.viewmodel.DeletedReminder
 import com.nikoladrljaca.getreminded.viewmodel.Reminder
 import com.nikoladrljaca.getreminded.viewmodel.welcomeReminder
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
+
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import java.util.concurrent.Executors
+
 
 @Database(entities = arrayOf(Reminder::class, DeletedReminder::class), version = 4, exportSchema = false)
 public abstract class ReminderDatabase: RoomDatabase() {

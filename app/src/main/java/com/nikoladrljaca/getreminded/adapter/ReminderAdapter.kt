@@ -1,16 +1,14 @@
 package com.nikoladrljaca.getreminded.adapter
 
 import android.content.Context
-import android.content.res.ColorStateList
-import android.graphics.Color
-import android.util.Log
+
 import android.view.*
-import androidx.core.content.ContextCompat
+
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.card.MaterialCardView
-import com.nikoladrljaca.getreminded.R
+
 import com.nikoladrljaca.getreminded.databinding.ListItemLayoutBinding
 import com.nikoladrljaca.getreminded.utils.*
 import com.nikoladrljaca.getreminded.viewmodel.Reminder

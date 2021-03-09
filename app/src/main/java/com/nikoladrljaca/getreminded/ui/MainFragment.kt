@@ -3,8 +3,6 @@ package com.nikoladrljaca.getreminded.ui
 import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
-import android.view.ContextMenu
-import android.view.MenuInflater
 import android.view.MenuItem
 import androidx.fragment.app.Fragment
 import android.view.View
