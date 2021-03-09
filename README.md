@@ -4,8 +4,13 @@ Android Architecture Components.
 Created by a university student looking to improve his skills.
 
 ## Screenshots
-Inlined
-![alt text] (https://github.com/nikolaDrljaca/GetReminded/blob/dev/screenshots/screen_1.png?raw=true "Screenshot 1")
+<p float="left">
+    <img src="https://github.com/nikolaDrljaca/GetReminded/blob/dev/screenshots/screen_1.png" width="30%" />
+    <img src="https://github.com/nikolaDrljaca/GetReminded/blob/dev/screenshots/screen_2.png" width="30%" />
+    <img src="https://github.com/nikolaDrljaca/GetReminded/blob/dev/screenshots/screen_3.png" width="30%" />
+    <img src="https://github.com/nikolaDrljaca/GetReminded/blob/dev/screenshots/screen_4.png" width="30%" />
+</p>
+
 
 
 ## Installation/Download
