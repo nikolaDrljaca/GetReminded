@@ -107,7 +107,6 @@ class ReminderFragment : Fragment(R.layout.fragment_reminder) {
             btnSelectColor.setOnClickListener {
                 ColorSheet().colorPicker(
                     colors = colorListInInts,
-                    noColorOption = true,
                     listener = { color ->
                         sharedViewModel.setCardColor(color)
                         constraintLayout.setBackgroundColor(color)
